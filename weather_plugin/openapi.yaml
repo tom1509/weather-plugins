@@ -1,0 +1,47 @@
+openapi: 3.0.1
+info:
+  title: 天气查询工具
+  version: 1.0.0
+  description: 通过经纬度获取实时天气信息
+servers:
+  - url: https://api.open-meteo.com
+paths:
+  /v1/forecast:
+    get:
+      summary: 获取当前天气信息
+      parameters:
+        - name: latitude
+          in: query
+          required: true
+          schema:
+            type: number
+        - name: longitude
+          in: query
+          required: true
+          schema:
+            type: number
+        - name: current_weather
+          in: query
+          required: true
+          schema:
+            type: boolean
+            default: true
+      responses:
+        '200':
+          description: 天气数据
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  current_weather:
+                    type: object
+                    properties:
+                      temperature:
+                        type: number
+                      windspeed:
+                        type: number
+                      weathercode:
+                        type: integer
+                      time:
+                        type: string
