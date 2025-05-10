@@ -8,6 +8,7 @@ servers:
 paths:
   /search:
     get:
+      operationId: get_location_by_name
       summary: 通过地名获取经纬度
       parameters:
         - name: q
@@ -36,11 +37,16 @@ paths:
               schema:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    lat:
-                      type: string
-                    lon:
-                      type: string
-                    display_name:
-                      type: string
+                  $ref: '#/components/schemas/Location'
+
+components:
+  schemas:
+    Location:
+      type: object
+      properties:
+        lat:
+          type: string
+        lon:
+          type: string
+        display_name:
+          type: string
