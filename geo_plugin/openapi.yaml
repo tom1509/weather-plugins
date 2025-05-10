@@ -1,0 +1,46 @@
+openapi: 3.0.1
+info:
+  title: 城市地理坐标查询工具
+  version: 1.0.0
+  description: 通过城市名称获取经纬度坐标
+servers:
+  - url: https://nominatim.openstreetmap.org
+paths:
+  /search:
+    get:
+      summary: 通过地名获取经纬度
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: 城市或地点名称
+          schema:
+            type: string
+        - name: format
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [json]
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 1
+      responses:
+        '200':
+          description: 城市坐标数组
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    lat:
+                      type: string
+                    lon:
+                      type: string
+                    display_name:
+                      type: string
