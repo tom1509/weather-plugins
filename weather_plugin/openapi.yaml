@@ -8,6 +8,7 @@ servers:
 paths:
   /v1/forecast:
     get:
+      operationId: get_current_weather
       summary: 获取当前天气信息
       parameters:
         - name: latitude
@@ -32,16 +33,21 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  current_weather:
-                    type: object
-                    properties:
-                      temperature:
-                        type: number
-                      windspeed:
-                        type: number
-                      weathercode:
-                        type: integer
-                      time:
-                        type: string
+                $ref: '#/components/schemas/CurrentWeatherResponse'
+
+components:
+  schemas:
+    CurrentWeatherResponse:
+      type: object
+      properties:
+        current_weather:
+          type: object
+          properties:
+            temperature:
+              type: number
+            windspeed:
+              type: number
+            weathercode:
+              type: integer
+            time:
+              type: string
